@@ -18,6 +18,16 @@ export class BookService {
     }
 
     async create(book: Book): Promise<Book> {
+        console.log('Creating book:', book);
         return this.bookRepository.save(book);
+    }
+
+    async update(id: number, book: Book): Promise<Book | null> {
+        await this.bookRepository.update(id, book);
+        return this.findOne(id);
+    }
+
+    async delete(id: number): Promise<void> {
+        await this.bookRepository.delete(id);
     }
 }

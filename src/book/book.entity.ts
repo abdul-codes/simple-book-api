@@ -17,3 +17,4 @@ export class Book {
     @Column()
     publicationYear: number;
 }
+
