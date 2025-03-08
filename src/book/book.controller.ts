@@ -2,6 +2,7 @@ import { Controller, Get, Param, Post, Body, Put, Delete } from '@nestjs/common'
 import { BookService } from './book.service';
 import { Book } from './book.entity';
 import { CreateBookDto } from './dto/create-book.dto';
+import { UpdateBookDto } from './dto/update-book.dto';
 
 @Controller('book')
 export class BookController {
@@ -23,8 +24,8 @@ export class BookController {
     }
 
     @Put(':id')
-    async update(@Param('id') id: number, @Body() book: Book): Promise<Book | null> {
-        return this.bookService.update(id, book)
+    async update(@Param('id') id: number, @Body() updateBook: UpdateBookDto): Promise<Book | null> {
+        return this.bookService.update(id, updateBook)
     }
 
     @Delete(':id')

@@ -3,6 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Book } from './book.entity';
 import { CreateBookDto } from './dto/create-book.dto';
+import { UpdateBookDto } from './dto/update-book.dto';
 
 @Injectable()
 export class BookService {
@@ -23,9 +24,13 @@ export class BookService {
         return this.bookRepository.save(book);
     }
 
-    async update(id: number, book: Book): Promise<Book | null> {
-        await this.bookRepository.update(id, book);
-        return this.findOne(id);
+    async update(id: number, updateBook: Book): Promise<Book | null> {
+        const book = await this.findOne(id)
+        if (!book) {
+            return null
+        }
+        Object.assign(book, updateBook)
+        return this.bookRepository.save(book);
     }
 
     async delete(id: number): Promise<void> {
